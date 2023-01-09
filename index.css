@@ -1,3 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap");
+
+body,
+html {
+  font-family: "Roboto", sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
 .header {
-  background-color: yellow;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 14px 28px -3px rgba(0, 0, 0, 0.1);
+}
+
+.nav-items {
+  display: flex;
+  list-style: none;
+}
+
+.nav-items > .item {
+  padding: 20px;
+}
+
+.brand > .brand-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  height: 80px;
+  width: 80px;
+}
+
+.rest-card {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 250px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.rest-list {
+  display: flex;
+  justify-content: stretch;
+  flex-wrap: wrap;
+}
+
+.cuisines {
+  width: 100%;
+}
+
+.cuisines > .cuisine {
+  word-wrap: break-word;
+  margin-top: 0px;
+}
+
+.name {
+  margin-bottom: 5px;
 }

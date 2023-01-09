@@ -1,5 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import Footer from "./components/Footer";
 
 // const heading1 = React.createElement("h1", { id: "heading1" }, "Heading 1");
 // const heading2 = React.createElement("h1", { id: "heading2" }, "Heading 2");
@@ -10,23 +13,22 @@ import ReactDOM from "react-dom/client";
 //   heading2,
 // ]);
 
-const title = <h1>Namaste React </h1>;
-const Title = () => {
-  return <h1>Namaste React</h1>;
-};
+// const title = <h1>Namaste React </h1>;
+// const Title = () => {
+//   return <h1>Namaste React</h1>;
+// };
 
-// Functional component which returns JSX
-const Header = () => {
+const AppLayout = () => {
   return (
-    <div>
-      <Title />
-      <h1>Heading 1</h1>
-      <h1>Heading 2</h1>
-    </div>
+    <>
+      <Header />
+      <Body />
+      <Footer />
+    </>
   );
 };
 
 //! Root where react app renderes
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<Header />);
+root.render(<AppLayout />);
