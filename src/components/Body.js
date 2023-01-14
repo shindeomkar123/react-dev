@@ -1,29 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
 import RestaurantList from "./RestaurantList";
-import { RESTAURANT_LIST } from "../../constants";
 
 const Body = () => {
   const [searchTxt, setSearchTxt] = useState("");
 
-  const [restaurantList, setRestaurantList] = useState(RESTAURANT_LIST);
+  const [allRestaurantList, setRestaurantList] = useState([]);
 
-  const [filteredList, setFilteredList] = useState(restaurantList);
+  const [filteredList, setFilteredList] = useState([]);
 
   const onFilterList = (searchTxt, restaurantList) => {
-    const list = restaurantList.filter((el) =>
-      el.data.name.includes(searchTxt)
+    if (searchTxt === "") {
+      return setFilteredList(allRestaurantList);
+    }
+    const filteredList = restaurantList.filter((restaurant) =>
+      restaurant?.data?.name?.toLowerCase().includes(searchTxt.toLowerCase())
     );
-    return list;
+    setFilteredList(filteredList);
   };
 
-  onChangeText = (searchTxt) => {
-    const list = [...restaurantList];
-    if (searchTxt === "") {
-      setFilteredList(list);
-      return;
-    }
-    setFilteredList(list.filter((el) => el.data.name.includes(searchTxt)));
+  useEffect(() => {
+    getAllRestaurants();
+  }, []);
+
+  const getAllRestaurants = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5204303&lng=73.8567437&page_type=DESKTOP_WEB_LISTING"
+    );
+    const restaurantList = await data.json();
+    setRestaurantList(restaurantList?.data?.cards[2]?.data?.data?.cards);
+    setFilteredList(restaurantList?.data?.cards[2]?.data?.data?.cards);
   };
+
+  //! on value type change event
+  // onChangeText = (searchTxt) => {
+  //   const list = [...restaurantList];
+  //   if (searchTxt === "") {
+  //     setFilteredList(list);
+  //     return;
+  //   }
+  //   setFilteredList(list.filter((el) => el.data.name.includes(searchTxt)));
+  // };
+
+  if (allRestaurantList.length === 0) {
+    return <Shimmer></Shimmer>;
+  }
 
   return (
     <div>
@@ -31,21 +52,23 @@ const Body = () => {
         <input
           type={"text"}
           onChange={(e) => {
-            onChangeText(e.target.value);
             setSearchTxt(e.target.value);
           }}
           value={searchTxt}
         />
         <button
           onClick={() => {
-            const data = onFilterList(searchTxt, restaurantList);
-            setRestaurantList(data);
+            onFilterList(searchTxt, allRestaurantList);
           }}
         >
           Search
         </button>
       </div>
-      <RestaurantList restaurantList={filteredList} />
+      {filteredList?.length > 0 ? (
+        <RestaurantList restaurantList={filteredList} />
+      ) : (
+        <div>No restaurant found...</div>
+      )}
     </div>
   );
 };
