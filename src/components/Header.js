@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <div className="header">
@@ -10,10 +12,18 @@ const Header = () => {
         <span className="brand-name">foodpanda</span>
       </div>
       <ul className="nav-items">
-        <li className="item">Home</li>
-        <li className="item">About</li>
-        <li className="item">Cart</li>
-        <li className="item">Order</li>
+        <Link to="/">
+          <li className="item">Home</li>
+        </Link>
+        <Link to="/about">
+          <li className="item">About</li>
+        </Link>
+        <Link to={"/contact"}>
+          <li className="item">Contact</li>
+        </Link>
+        <Link to={"/order"}>
+          <li className="item">Order</li>
+        </Link>
       </ul>
     </div>
   );

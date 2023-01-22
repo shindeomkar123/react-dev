@@ -38,6 +38,9 @@ html {
   width: 80px;
 }
 
+ul > li {
+  display: inline;
+}
 .rest-card {
   display: flex;
   flex-direction: column;
