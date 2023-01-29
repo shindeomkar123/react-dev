@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="header">
       <div className="brand">
@@ -25,6 +29,9 @@ const Header = () => {
           <li className="item">Order</li>
         </Link>
       </ul>
+      <div>
+        {user.name}- {user.email}
+      </div>
     </div>
   );
 };

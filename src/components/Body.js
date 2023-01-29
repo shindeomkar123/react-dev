@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import RestaurantList from "./RestaurantList";
 import { RESTAURANT_LIST } from "../../constants";
 import useOnline from "../utils/useOnline";
+import UserContext from "../utils/UserContext";
 const Body = () => {
   const [searchTxt, setSearchTxt] = useState("");
 
   const [allRestaurantList, setRestaurantList] = useState(RESTAURANT_LIST);
 
   const [filteredList, setFilteredList] = useState(allRestaurantList);
+
+  const { user, setUser } = useContext(UserContext);
 
   const isOnline = useOnline();
 
@@ -70,6 +73,14 @@ const Body = () => {
         >
           Search
         </button>
+      </div>
+      <div>
+        <input
+          value={user.name}
+          onChange={(e) => {
+            setUser({ ...user, name: e.target.value });
+          }}
+        ></input>
       </div>
       {isOnline ? <div>YOU ARE ONLINE</div> : <div>You are offline</div>}
       {filteredList?.length > 0 ? (

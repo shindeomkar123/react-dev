@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -8,6 +8,7 @@ import Order from "./components/Order";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Order from "./components/Order";
+import UserContext from "./utils/UserContext";
 // const heading1 = React.createElement("h1", { id: "heading1" }, "Heading 1");
 // const heading2 = React.createElement("h1", { id: "heading2" }, "Heading 2");
 
@@ -23,12 +24,17 @@ import Order from "./components/Order";
 // };
 
 const AppLayout = () => {
+  const [user, setUser] = useState({
+    name: "Akshay Saini",
+    email: "support@namastedev.com",
+  });
+
   return (
-    <>
+    <UserContext.Provider value={{ user, setUser }}>
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </UserContext.Provider>
   );
 };
 
